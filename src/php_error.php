@@ -1286,14 +1286,21 @@
                     ErrorHandler::setFolders( $this->applicationFolders, $this->applicationFoldersLongest, $appFolders );
                 }
 
-                $this->saveUrl                  = ErrorHandler::optionsPop( $options, 'save_url', $_SERVER['REQUEST_URI'] );
+                if(isset($_SERVER['REQUEST_URI'])){
+                    $this->saveUrl = ErrorHandler::optionsPop( $options, 'save_url', $_SERVER['REQUEST_URI'] );
+                }
+                
                 $this->isSavingEnabled          = ErrorHandler::optionsPop( $options, 'enable_saving', true );
 
                 $this->defaultErrorReportingOn  = ErrorHandler::optionsPop( $options, 'error_reporting_on'  , -1                        );
                 $this->defaultErrorReportingOff = ErrorHandler::optionsPop( $options, 'error_reporting_off' , error_reporting()         );
 
                 $this->applicationRoot          = ErrorHandler::optionsPop( $options, 'application_root'    , $_SERVER['DOCUMENT_ROOT'] );
-                $this->serverName               = ErrorHandler::optionsPop( $options, 'server_name'         , $_SERVER['SERVER_NAME']   );
+                
+                if(isset($_SERVER['SERVER_NAME'])){
+                    $this->serverName = ErrorHandler::optionsPop( $options, 'server_name', $_SERVER['SERVER_NAME']   );
+                }
+                
                 $this->showErrorCode            = ErrorHandler::optionsPop( $options, 'show_error_code'         , false);
 
                 /*
